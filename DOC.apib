@@ -1,0 +1,185 @@
+FORMAT: 1A
+HOST: https://localhost:3333
+
+# Rodrigo Gonçalves
+
+API para gestão de planos e beneficiários.
+
+## Grupo [/beneficiario]
+
+### Criando beneficiários [GET]
+
++ Request (application/json)
+    {
+        "nome": "Nome",
+        "idade": "80",
+        "id_beneficiary_main": 2,
+        "id_plans": 3
+    }
+
++ Response 201 (application/json)
+
+    + Body
+            
+            {
+                "message": "Beneficiário criado com sucesso!",
+                "beneficiary": {
+                    "nome": "Luiz Rato",
+                    "idade": "80",
+                    "id_beneficiary_main": 2,
+                    "id_plans": 3
+                }
+            }
+
++ Response 404 (application/json)
+    {
+        "message": "Não foi criar este beneficiários"
+    }
+
+
+### Listando todos os beneficiários [GET]
+Nessa rota é possível fazer a listagem de todos os beneficiários, caso não seja encontrado, retornará uma mensagem e um status de não encontrado;
+
++ Response 200 (application/json)
+
+        {
+            "message": "Busca concluída",
+            "resultado": [
+                {
+                    "id": 1,
+                    "id_beneficiario_principal": 1,
+                    "beneficiario_nome": "Luiz neto",
+                    "idade_beneficiario": 18,
+                    "plano": {
+                        "nome": "Bitix Customer Plano 1",
+                        "preco": 12,
+                        "precoTotal": 48
+                    }
+                },
+                {
+                    "id": 2,
+                    "id_beneficiario_principal": 1,
+                    "beneficiario_nome": "Luiz Claudio",
+                    "idade_beneficiario": 22,
+                    "plano": {
+                        "nome": "Bitix Customer Plano 1",
+                        "preco": 12,
+                        "precoTotal": 48
+                    }
+                },
+                {
+                    "id": 3,
+                    "id_beneficiario_principal": 2,
+                    "beneficiario_nome": "Luiz Nando",
+                    "idade_beneficiario": 50,
+                    "plano": {
+                        "nome": "Bitix Customer Plano 3",
+                        "preco": 40,
+                        "precoTotal": 80
+                    }
+                },
+                {
+                    "id": 4,
+                    "id_beneficiario_principal": 1,
+                    "beneficiario_nome": "Luiz Nanda",
+                    "idade_beneficiario": 30,
+                    "plano": {
+                        "nome": "Bitix Customer Plano 1",
+                        "preco": 12,
+                        "precoTotal": 48
+                    }
+                },
+                {
+                    "id": 5,
+                    "id_beneficiario_principal": 1,
+                    "beneficiario_nome": "Luiz Nelso",
+                    "idade_beneficiario": 15,
+                    "plano": {
+                        "nome": "Bitix Customer Plano 1",
+                        "preco": 10,
+                        "precoTotal": 40
+                    }
+                },
+                {
+                "id": 6,
+                "id_beneficiario_principal": 2,
+                "beneficiario_nome": "Luiz Rato",
+                "idade_beneficiario": 80,
+                "plano": {
+                    "nome": "Bitix Customer Plano 3",
+                    "preco": 40,
+                    "precoTotal": 80
+                }
+            }
+        ]
+    }
+
++ Response 404 (application/json)
+    {
+        "message": "Não foi possível encontrar os beneficiários"
+    }
+
+## Grupo [/planos]
+### Criando os planos [POST]
+
+Nessa rota é possível criar os planos um por um, retornando uma mensagem de sucesso e caso ocorra um erro, um retorno de falha e uma mensagem.
+
++ Request (application/json)
+
+        {
+            "id_plans": 6,
+            "nome": "Bitix Customer Plano 6",
+            "registro": "reg6"
+        }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "message": "Plano inserido com sucesso",
+                "plan": {
+                    "id_plans": 7,
+                    "nome": "Bitix Customer Plano 7",
+                    "registro": "reg7"
+                }
+            }
+
+## Grupo [/precos]
+### Criando os preços para os planos [POST]
+
+Nessa rota é possível criar os planos um por um, onde cada plano contará juntamente com o ID dos planos, 
+caso seja posto um ID que não exista na tabela de planos, será retornado uma mensagem e um status de não encontrado.
+
++ Request (application/json)
+
+        {
+            "id_plans": 6,
+            "minimos_vidas": 2,
+            "faixa1": 55.00,
+            "faixa2": 65.00,
+            "faixa3": 75.00
+        }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "message": "Tabela de preços criada com sucesso!",
+                "price": {
+                    "minimos_vidas": 2,
+                    "faixa1": 55,
+                    "faixa2": 65,
+                    "faixa3": 75,
+                    "id_plans": 3
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Body
+    
+        {
+            "message": "Não foi possível encontrar este plano selecionado"
+        }
