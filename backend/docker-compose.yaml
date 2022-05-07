@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'planium'
+      MYSQL_USER: 'planium_user'
+      MYSQL_PASSWORD: 'planium_password'
+      MYSQL_ROOT_PASSWORD: 'planium_password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - planium_DB:/var/lib/mysql
+# Names our volume
+volumes:
+  planium_DB:
